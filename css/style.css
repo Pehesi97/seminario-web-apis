@@ -1,0 +1,32 @@
+.bespoke-progress-bar {
+    background-color: #FFF380;
+}
+
+.bespoke-parent {
+    background-color: cornflowerblue;
+}
+
+code {
+    background:#000;
+    padding:6px;
+    margin-top: 6px;
+    margin-bottom: 15px;
+    font-size: 16px;
+    line-height: 1.5;
+    overflow-y: scroll;
+}
+
+h3 {
+    color: #FFF380;
+}
+
+strong {
+    color: #FFF380;
+}
+
+li {
+    font-size: 22px;
+}
+
+#batteryst {
+}

@@ -1,0 +1,148 @@
+<!doctype html>
+<html>
+    <head>
+        <link rel="stylesheet" href="css/style.css" />
+        <title>APIs do HTML5</title>
+        <meta charset="utf-8">
+    </head>
+    <body>
+        <article id="presentation">
+            <section>
+                <h1>APIs do HTML5</h1>
+                <h3>Pedro Silva e Túlio Mitre</h3>
+            </section>
+            <section><h1>Beacon API</h1></section>
+            <section>
+                <h3>
+                    O que é a Beacon API?
+                </h3>
+                <ul>
+                    <li>Beacon é uma API para envio de pequenos "pacotes" de dados, como análises ou diagnósticos de uso, para o servidor, de forma assíncrona, quando o usuário escolhe sair da página.</li>
+                    <li>Solução para delays no carregamento da próxima página a ser visitada.</li>
+                    <li>Garantia de que todos os dados necessários serão coletados.</li>
+                </ul>
+            </section>
+            <section>
+                <h3>
+                    Como usar a Beacon API?
+                </h3>
+                <code>
+                    window.addEventListener('unload', function(event) {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;var data = captureAnalyticsData(event);<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;navigator.sendBeacon('/log', data);<br>
+                    });
+                </code>
+            </section>
+            <section>
+                <h3>
+                    E posso usar nas minhas páginas?
+                </h3>
+                <img src="img/beacon.png" />
+            </section>
+            <section><h1>Page Visibility API</h1></section>
+            <section>
+                <h3>
+                    Pra que serve?
+                </h3>
+                <ul>
+                    <li>Page Visilibility é uma API que deixa o desenvolvedor saber se a página atual está em foco.</li>
+                    <li>Uso razoável: pausar um vídeo caso o usuário troque a aba atual.</li>
+                    <li>Outro uso razoável: economizar recursos evitando o desempenho de algumas funções desnecessárias quando fora de foco.</li>
+                </ul>
+            </section>
+            <section>
+                <h3>
+                    E como eu uso?
+                </h3>
+                <code>
+                    var hidden, visibilityChange;<br>
+                    if (typeof document.hidden !== "undefined") {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;hidden = "hidden";<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;visibilityChange = "visibilitychange";<br>
+                    } else if (typeof document.mozHidden !== "undefined") {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;hidden = "mozHidden";<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;visibilityChange = "mozvisibilitychange";<br>
+                    } else if (typeof document.msHidden !== "undefined") {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;hidden = "msHidden";<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;visibilityChange = "msvisibilitychange";<br>
+                    } else if (typeof document.webkitHidden !== "undefined") {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;hidden = "webkitHidden";<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;visibilityChange = "webkitvisibilitychange";<br>
+                    }<br>
+                    <br>
+                    var audioElement = document.getElementById("audioElement");<br>
+                    <br>
+                    function handleVisibilityChange() {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;if (document[hidden]) {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;audioElement.pause();<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;} else {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;audioElement.play();<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;}<br>
+                }
+                <br><br>
+                    if (typeof document.addEventListener === "undefined" || <br>&nbsp;&nbsp;&nbsp;&nbsp;typeof document[hidden] === "undefined") {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;alert("Esse navegador não suporta a Page Visibility API.");
+                } <br>else {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;document.addEventListener(visibilityChange, handleVisibilityChange, false);
+                </code>
+            </section>
+            <section>
+                <h3>
+                    Testando...
+                </h3>
+                <audio controls id="musicElement">
+                    <source src="music/play.mp3" type="audio/mpeg">
+                </audio>
+            </section>
+            <section>
+                <h3>
+                    Posso usar nas minhas páginas?
+                </h3>
+                <img src="img/pagevisibility.png" />
+            </section>
+            <section><h1>Battery Status API</h1></section>
+            <section>
+                <h3>
+                    Pra que serve?
+                </h3>
+                <ul>
+                    <li>A Battery Status API é uma API usada para retornar o nível da bateria, se ela está carregando ou não.</li>
+                    <li>Uso razoável: limitar algumas funções que poderiam resultar em altos gastos de bateria.</li>
+                    <li>Outro uso razoável: salvar possíveis configurações logo antes da bateria acabar.</li>
+                </ul>
+            </section>
+            <section>
+                <h3>
+                    E como eu uso?
+                </h3>
+                <code>
+                    navigator.getBattery().then(function(battery) {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;document.getElementById('batteryst').innerHTML = 'Status da bateria: ' + battery.level * 100 + ' %. ';<br><br>
+
+                    &nbsp;&nbsp;&nbsp;&nbsp;battery.addEventListener('levelchange', function() {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;document.getElementById('batteryst').innerHTML = 'Status da bateria: ' + battery.level * 100 + ' %. ';<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;});<br>
+                    });
+                </code>
+                <span id="batteryst">Bateria</span>
+            </section>
+            <section>
+                <h3>
+                    Posso usar nas minhas páginas?
+                </h3>
+                <img src="img/battery.png" />
+            </section>
+            <section>
+                <h3>
+                    Dúvidas?
+                </h3>
+            </section>
+        </article>
+        <script src="js/bespoke.min.js"></script>
+        <script src="js/bespoke-theme-nebula.min.js"></script>
+        <script src="js/bespoke-hash.min.js"></script>
+        <script src="js/bespoke-keys.min.js"></script>
+        <script src="js/bespoke-progress.min.js"></script>
+        <script src="js/main.js"></script>
+    </body>
+</html>
